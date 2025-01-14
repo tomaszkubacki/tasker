@@ -1,0 +1,12 @@
+[package]
+name = "tasker"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+tokio = { version = "1", features = ["full"] }
+actix-web = "4"
+serde = { version = "1.0.197", features = ["derive"] }
+log = "0.4.22"
+simple_logger = "5.0.0"
+
