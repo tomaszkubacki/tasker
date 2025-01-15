@@ -2,7 +2,6 @@ use std::{sync::Mutex, time::Duration};
 
 use actix_web::{get, post, App, HttpResponse, HttpServer, Responder};
 use log::info;
-use simple_logger::SimpleLogger;
 use tokio::task::Id;
 
 static TASK_LIST: Mutex<Vec<Id>> = Mutex::new(Vec::new());
@@ -41,7 +40,7 @@ async fn new_task() {
     for i in 0..500 {
         if i % 25 == 0 {
             info!("task {:?} {}", task_id, i);
-            tokio::time::sleep(Duration::from_millis(500)).await;
+            tokio::time::sleep(Duration::from_millis(1500)).await;
         }
     }
     remove_task(&task_id);
@@ -50,7 +49,7 @@ async fn new_task() {
 
 #[tokio::main]
 async fn main() -> std::io::Result<()> {
-    SimpleLogger::new().env().init().unwrap();
+    simple_logger::init_with_level(log::Level::Info).unwrap();
 
     HttpServer::new(|| {
         App::new()
