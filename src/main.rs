@@ -10,6 +10,7 @@ use actix_web::{get, post, put, web, App, HttpResponse, HttpServer, Responder};
 use log::info;
 use tokio::task::{Id, JoinHandle};
 
+static PORT: u16 = 8181;
 static TASK_HANDLES: Mutex<Vec<Task>> = Mutex::new(Vec::new());
 static ID_GEN: AtomicUsize = AtomicUsize::new(0);
 
@@ -115,7 +116,7 @@ async fn main() -> std::io::Result<()> {
             .service(task_add)
             .service(task_stop)
     })
-    .bind(("127.0.0.1", 8080))?
+    .bind(("127.0.0.1", PORT))?
     .run()
     .await
 }
